@@ -35,3 +35,59 @@ for(;;) {
 for (i = 1; i <= 100; i++) {
     console.log(i + "번째 반복중");
 }
+
+/**
+ * break와 continue
+ */
+
+//num이 10인 경우 반복문 종료
+let num = 1;
+while (num <= 100) {
+
+    if (num === 10) {
+        break;
+    }
+
+    console.log(num + "번째 실행 중");
+    num++;
+}
+
+//조건에 만족하는 continue 아래의 코드는 건너뛰고 반복문의 첫 로직을 시작하게 된다.
+let i = 1;
+while (i <= 100) {
+
+    if ((i % 2) === 0) {
+        console.log(i + "번째는 짝수 입니다.");
+        i++;
+        continue;
+    }
+
+    console.log(i + "번째는 홀수 입니다.");
+    i++;
+}
+
+/**
+ * 중첩 반복문 (구구단 만들기)
+ */
+
+for (let i = 1; i < 10; i++) {
+    console.log(i + "단")
+    for (let j = 1; j < 10; j++) {
+        console.log(i + " * " + j + " = " + i*j);
+    }
+}
+
+//문제 구구단을 출력하되 결과에 짝수는 나오지 않도록 하기 
+for (let i = 1; i < 10; i++) {
+    if ((i % 2) === 0) {
+        continue;
+    }
+
+    console.log(i + "단")
+    for (let j = 1; j < 10; j++) {
+        if ((i*j % 2) === 0) {
+            continue;
+        }
+        console.log(i + " * " + j + " = " + i*j);
+    }
+}
