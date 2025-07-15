@@ -47,3 +47,17 @@ const multiply = (x, y, z) => {
 }
 
 multiply(2,3,4);
+
+/**
+ * 메서드란 객체의 속성 값으로 함수를 넣은 것을 말한다. 
+ * 
+ * 즉 객체 안에 들어 있는 함수를 메서드라고 한다. 
+ */
+
+const example = {
+    method : () => {
+        console.log("메서드");
+    }
+}
+
+example.method();
