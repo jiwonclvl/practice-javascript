@@ -13,10 +13,10 @@ while(true) {
     console.log("반목문 무한 실행 중");
 }
 
-let num = 1;
-while (num <= 100) {
-    console.log(num + "번째 실행 중");
-    num++;
+let num1 = 1;
+while (num1 <= 100) {
+    console.log(num1 + "번째 실행 중");
+    num1++;
 }
 
 /**
@@ -41,15 +41,15 @@ for (i = 1; i <= 100; i++) {
  */
 
 //num이 10인 경우 반복문 종료
-let num = 1;
-while (num <= 100) {
+let num2 = 1;
+while (num2 <= 100) {
 
-    if (num === 10) {
+    if (num2 === 10) {
         break;
     }
 
-    console.log(num + "번째 실행 중");
-    num++;
+    console.log(num2 + "번째 실행 중");
+    num2++;
 }
 
 //조건에 만족하는 continue 아래의 코드는 건너뛰고 반복문의 첫 로직을 시작하게 된다.
