@@ -87,3 +87,84 @@ function Method() {
 [변환기](https://transform.tools/html-to-jsx) 
 
 변환기를 사용하여 HTML과 SVG를 JSX로 편안하게 변환할 수 있습니다. 
+
+
+<br>
+
+### 동적 프로퍼티 참조하기 (중괄호 사용)
+
+#### 따움표로 문자열 전달하기 
+
+```js
+export default function Avatar() {
+    return (
+        <img
+            className="avatar" 
+            src="https://i.imgur.com/7vQD0fPs.jpg" //문자열로 전달
+            alt="Gregorio Y. Zara" //문자열로 전달
+        />
+    );
+}
+```
+
+➡️ 동적으로 지정하기 위해서는 ""를 {}로 변환하여 사용할 수 있습니다. 
+
+```js
+const image = "https://i.imgur.com/7vQD0fPs.jpg"
+const description = "Gregorio Y. Zara" 
+
+export default function Avatar() {
+    return (
+        <img
+            className="avatar" 
+            src= {image} //동적 전달
+            alt= {description}//동적 전달
+        />
+    );
+}
+```
+
+> ⚠️ **`src= "{image}"`는 문자열로 전달됩니다.** 
+
+<br>
+
+#### 태그 내부 내용에서의 중괄호 사용
+
+```js
+const name = "jiwon"
+export default function TodoList() {
+    return (
+        <h1> {name}'s todoList </h1>
+    );
+}
+```
+
+<br>
+
+#### 함수 호출을 포함한 중괄호 사용
+
+```js
+function formatDate(date) {
+    return new Intl.DateTimeFormat(
+        `en-US`,
+        {weekday: 'long'}
+    ).format(date);
+}
+
+const today = new Date()
+export default function TodoList() {
+    return (
+        <h1> To Do List for {formatDate(today)} </h1>
+    )
+}
+```
+
+<br>
+
+#### 객체 전달을 위한 중괄호 사용
+
+객체의 경우 `{name: "jiwon", age: 24}`로 표현됩니다. 
+
+따라서 객체를 전달하고 싶은 경우에는 **중괄호로 객체를 감싸야 합니다.** 
+
+➡️ `{{name: "jiwon", age: 24}}`
