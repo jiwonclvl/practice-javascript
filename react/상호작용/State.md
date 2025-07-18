@@ -90,3 +90,100 @@ const [second, setSecond] = useSate();
 
 
 > 💡 **순서를 기억하기 때문에 조건문이나 for문에 사용시 React가 순서를 헷갈려할 수 있습니다. 따라서 state는 최상단에만 호출해야합니다.** 
+
+<br>
+
+## State 특징 (스냅샷)
+
+버튼을 클릭했을 때 화면에 출력되는 number의 값은 1입니다.
+
+```js
+import { useState } from 'react';
+
+export default function Counter() {
+    const [number, setNumber] = useState(0);
+
+    return (
+        <>
+            <h1>{number}</h1>
+            <button onClick={() => {
+                setNumber(number + 1); // number는 아직 0 ➝ setNumber(1) 
+                setNumber(number + 1); // number는 아직 0 ➝ setNumber(1)
+                setNumber(number + 1); // number는 아직 0 ➝ setNumber(1)
+            }}>+3</button>
+        </>
+    )
+}
+```
+
+setter의 경우 즉시 실행되지 않고 렌더링 시 바꿀 값으로 예약합니다.
+
+위의 코드에서는 단순히 numner(=0)을 1로 변경하겠다는 예약만 한 상태가 됩니다.
+
+> **🗨️ 그렇다면 렌더링 전 값에 여러 작업을 수행하고 싶을 때는 어떻게 해야할까요?**
+> 
+> ➡️ 업데이터 함수(updater function)
+
+<br>
+
+## State 특징 (업데이트 큐)
+
+다름 렌더링을 예약하기 전에 값에 대해 여러 작업을 수행하고 싶은 경우에는 `setNumber(n => n + 1)`를 사용합니다.
+
+```js
+import { useState } from 'react';
+
+export default function Counter() {
+    const [number, setNumber] = useState(0);
+
+    return (
+        <>
+            <h1>{number}</h1>
+            <button onClick={() => {
+                setNumber(number + 1); // number + 1 작업 큐에 추가 
+                setNumber(n => n + 1); // number + 1 작업 큐에 추가 
+                setNumber(n => n + 1); // number + 1 작업 큐에 추가 
+            }}>+3</button>
+        </>
+    )
+}
+```
+
+React는 state 큐에 추가된 작업을 순회하며 작업을 수행하고 최종 결과를 저장해 반환합니다.
+
+>  💡**명명 규칙**
+> 
+> 업데이터 함수의 인수 이름은 **state변수의 첫글자로 지정**하는 것이 일반적입니다. 
+
+<br>
+
+
+
+
+<br>
+
+## 공식 문서 문제
+
+**[2. state 큐를 직접 구현해 보세요.](https://ko.react.dev/learn/queueing-a-series-of-state-updates)**
+
+```js
+export function getFinalState(baseState, queue) {
+  let finalState = baseState;
+
+  //큐 순회
+  for (let i = 0; i < queue.length; i++) {
+    let value = queue[i]; 
+
+    //큐의 요소가 함수인 경우
+    if ('function' === typeof value) {
+      value(finalState);
+    } else {
+      finalState = value; 
+    }
+    
+  }
+
+  return finalState;
+}
+```
+
